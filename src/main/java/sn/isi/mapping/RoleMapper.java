@@ -9,4 +9,5 @@ import sn.isi.entities.RoleEntity;
 public interface RoleMapper {
     Role toRole(RoleEntity roleEntity);
     RoleEntity fromRole(Role role);
+	Role toRole(Role orElseThrow);
 }

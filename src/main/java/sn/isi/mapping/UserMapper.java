@@ -8,4 +8,5 @@ import sn.isi.entities.UserEntity;
 public interface UserMapper {
     User toUser(UserEntity userEntity);
     UserEntity fromUser(User user);
+	User toUser(User orElseThrow);
 }
