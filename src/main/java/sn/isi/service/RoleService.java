@@ -5,6 +5,8 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.stereotype.Service;
@@ -39,13 +41,18 @@ public class RoleService {
 
     @Transactional
     public Role createRole(Role role) {
-        
-        roleRepository.findByRole_titleIgnoreCase(role.getRole_title())
+     
+        roleRepository.findByRole_tileIgnoreCase(role.getRole_title())
                 .ifPresent(entity -> {
-                    throw new RequestException(messageSource.getMessage("role.exists", new Object[]{role.getRole_title()},
-                            Locale.getDefault()), HttpStatus.CONFLICT);
+                    try {
+						throw new Exception(messageSource.getMessage("role.exists", new Object[]{role.getRole_title()},
+						        Locale.getDefault()));
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
                 });
-        return roleMapper.toRole(roleRepository.save(roleMapper.fromRole(role)));
+        return roleMapper.toCredit(roleRepository.save(roleMapper.fromRole(role)));
     }
 
     @Transactional

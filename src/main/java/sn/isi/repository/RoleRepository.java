@@ -18,4 +18,6 @@ public interface RoleRepository {
 	Page<Role> findAll();
 
 	Role findByRole_title(String role_title);
+
+	Optional<Role> findByRole_tileIgnoreCase(String role_title);
 }
